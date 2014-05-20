@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Examples</title>
+    <style type="text/css">
+        body{
+            font-family: "museo_sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 110%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Examples</h1>
+    <p class="museo__sans">museo__sans</p>
+    <p class="museo__sans-bold">museo__sans-bold</p>
+    <p class="museo__sans">Example museo__sans with <b>bold</b></p>
+
+    <script src="js/webfont.js"></script>
+    <script>
+        WebFont.load({
+            custom: {
+                families: ['museo_sans:n1'],
+                urls: ['css/fonts.css']
+            }
+        });
+    </script>
+</body>
+</html>

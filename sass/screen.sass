@@ -1,0 +1,189 @@
+// Size
+=attr-size($attr, $sizes, $important: null, $unit: rem, $base: 16)
+    $ie: null !default
+    $others: null !default
+    @each $n in $sizes
+        @if type-of($n) == string or type-of($n) == color
+            $ie: join($ie, $n)
+            $others: join($others, $n)
+        @else
+            $ie: join($ie, #{strip-units($n)}px)
+            $others: join($others, #{relative-size($n, $base, $unit)})
+    #{$attr}: join($ie, $important)
+    #{$attr}: join($others, $important)
+
+=sans-serif($prepend: null)
+    $list: 'Helvetica Neue', Helvetica, Arial, sans-serif
+    font-family: join($prepend, $list, comma)
+
+=serif($prepend: null)
+    $list: 'Times New Roman', Times, serif
+    font-family: join($prepend, $list, comma)
+
+.fontSmoothing
+    -webkit-font-smoothing: antialiased
+    -moz-osx-font-smoothing: grayscale
+
+.museoSans300
+    @extend .fontSmoothing
+    +sans-serif('museo_sans300')
+
+.icon,
+[class^="icon-"],
+[class*=" icon-"]
+    font-family: 'teleport'
+    speak: none
+    font-style: normal
+    font-weight: normal
+    font-variant: normal
+    text-transform: none
+    // line-height: 1
+    vertical-align: baseline
+
+    @extend .fontSmoothing
+
+.icon-envelope-o:before
+    content: "\f003"
+
+.icon-user-login:before
+    content: "\f007"
+
+.icon-check:before
+    content: "\f00c"
+
+.icon-times:before
+    content: "\f00d"
+
+.icon-power-off:before
+    content: "\f011"
+
+.icon-trash-o:before
+    content: "\f014"
+
+.icon-file-o:before
+    content: "\f016"
+
+.icon-refresh:before
+    content: "\f021"
+
+.icon-lock:before
+    content: "\f023"
+
+.icon-print:before
+    content: "\f02f"
+
+.icon-plus:before
+    content: "\f067"
+
+.icon-minus:before
+    content: "\f068"
+
+.icon-filter:before
+    content: "\f0b0"
+
+.icon-copy:before
+    content: "\f0c5"
+
+.icon-envelope:before
+    content: "\f0e0"
+
+.icon-file-text-o:before
+    content: "\f0f6"
+
+.icon-file:before
+    content: "\f15b"
+
+.icon-file-text:before
+    content: "\f15c"
+
+.icon-clipboard:before
+    content: "\e603"
+
+.icon-clipboard-check:before
+    content: "\e605"
+
+.icon-tex:before
+    content: "\e613"
+
+.icon-headset:before
+    content: "\e604"
+
+.icon-pencil:before
+    content: "\e600"
+
+.icon-location:before
+    content: "\e601"
+
+.icon-flag:before
+    content: "\e602"
+
+.icon-tools:before
+    content: "\e60a"
+
+.icon-bolt:before
+    content: "\e608"
+
+.icon-play:before
+    content: "\e615"
+
+.icon-pause:before
+    content: "\e616"
+
+.icon-record:before
+    content: "\e617"
+
+.icon-stop:before
+    content: "\e618"
+
+.icon-arrow-left:before
+    content: "\e61d"
+
+.icon-arrow-down:before
+    content: "\e61e"
+
+.icon-arrow-up:before
+    content: "\e61f"
+
+.icon-arrow-right:before
+    content: "\e620"
+
+.icon-barcode:before
+    content: "\e609"
+
+.icon-calendar:before
+    content: "\e60e"
+
+.icon-user:before
+    content: "\e60b"
+
+.icon-users:before
+    content: "\e610"
+
+.icon-search:before
+    content: "\e606"
+
+.icon-zoomin:before
+    content: "\e60c"
+
+.icon-zoomout:before
+    content: "\e60d"
+
+.icon-cog:before
+    content: "\e60f"
+
+.icon-file-pdf:before
+    content: "\e607"
+
+.icon-file-zip:before
+    content: "\e625"
+
+.icon-file-powerpoint:before
+    content: "\e626"
+
+
+// Font size
+// Usage: <p class="fs-32">Yeahh</p>;
+$fontSizes: 14 16 28 32
+@each $c in $fontSizes
+    .fs-#{$c}
+        +attr-size("font-size", $c, !important)

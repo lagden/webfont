@@ -2,26 +2,61 @@
 <html lang="en">
 <head>
     <title>Examples</title>
-    <style type="text/css">
-        body{
-            font-family: "museo_sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-            font-size: 110%;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="css/screen.css">
 </head>
 <body>
-    <h1>Examples</h1>
-    <p class="museo__sans">museo__sans</p>
-    <p class="museo__sans-bold">museo__sans-bold</p>
-    <p class="museo__sans">Example museo__sans with <b>bold</b></p>
+    <h1 class="museoSans300">museoSans300</h1>
+    <h2 class="museoSans300">museoSans300</h2>
+    <p class="museoSans300">Example museoSans300 with <b>bold</b></p>
 
-    <script src="js/webfont.js"></script>
+    <h1 class="icon icon-lock"></h1>
+    <h2 class="icon icon-lock"></h2>
+    <p class="icon icon-lock"></p>
+
     <script>
-        WebFont.load({
-            custom: {
-                families: ['museo_sans:n1'],
-                urls: ['css/fonts.css']
-            }
+        // Carrega o javascript assíncrono
+        function loadScript(src, callback) {
+            var s,
+                r,
+                t;
+            r = false;
+            s = document.createElement('script');
+            s.type = 'text/javascript';
+            s.src = src;
+            s.onload = s.onreadystatechange = function() {
+                if (!r && (!this.readyState || this.readyState == 'complete')) {
+                    r = true;
+                    callback();
+                }
+            };
+            t = document.getElementsByTagName('script')[0];
+            t.parentNode.insertBefore(s, t);
+        }
+
+        // Carrega o css
+        function loadCss(href) {
+            'use strict';
+            var link = document.createElement('link');
+            link.type = 'text/css';
+            link.rel = 'stylesheet';
+            link.href = href;
+            document.getElementsByTagName('head')[0].appendChild(link);
+        }
+
+        // Carregando a font
+        //
+        // !!! Só funciona quando roda via PHP
+        // https://github.com/NielsLeenheer/WhichBrowser
+        //
+        loadScript('http://10.0.1.165/github/WhichBrowser/detect.js', function() {
+            var info = new WhichBrowser();
+
+            if (info.browser.name === 'Chrome' && info.os.name === 'Windows')
+                loadCss('css/fonts-win.css');
+            else if (parseInt(info.browser.version.major, 10) < 9 && info.browser.name === 'Internet Explorer')
+                loadCss('css/fonts-ie.css');
+            else
+                loadCss('css/fonts.css');
         });
     </script>
 </body>

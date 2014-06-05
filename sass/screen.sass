@@ -1,3 +1,10 @@
+// Functions
+@function strip-units($number)
+    @return $number / ($number * 0 + 1)
+
+@function relative-size($size, $base: 16, $unit: rem)
+    @return #{strip-units($size) / strip-units($base)}$unit
+
 // Size
 =attr-size($attr, $sizes, $important: null, $unit: rem, $base: 16)
     $ie: null !default
@@ -31,6 +38,7 @@
 .icon,
 [class^="icon-"],
 [class*=" icon-"]
+    @extend .fontSmoothing
     +sans-serif('teleport')
     // font-family: 'teleport'
     // speak: none
@@ -40,8 +48,6 @@
     // text-transform: none
     // line-height: 1
     // vertical-align: baseline
-
-    @extend .fontSmoothing
 
 .icon-envelope-o:before
     content: "\0021"

@@ -13,28 +13,9 @@
     <h1 class="icon icon-lock"></h1>
     <h2 class="icon icon-lock"></h2>
     <p class="icon icon-lock"></p>
-    <p class="icon">Lorem Ipsum Dolor Yeahhh!!</p>
+    <p class="icon fs-32">L I D</p>
 
     <script>
-        // Carrega o javascript assíncrono
-        function loadScript(src, callback) {
-            var s,
-                r,
-                t;
-            r = false;
-            s = document.createElement('script');
-            s.type = 'text/javascript';
-            s.src = src;
-            s.onload = s.onreadystatechange = function() {
-                if (!r && (!this.readyState || this.readyState == 'complete')) {
-                    r = true;
-                    callback();
-                }
-            };
-            t = document.getElementsByTagName('script')[0];
-            t.parentNode.insertBefore(s, t);
-        }
-
         // Carrega o css
         function loadCss(href) {
             'use strict';
@@ -45,21 +26,42 @@
             document.getElementsByTagName('head')[0].appendChild(link);
         }
 
-        // Carregando a font
-        //
-        // !!! Só funciona quando roda via PHP
-        // https://github.com/NielsLeenheer/WhichBrowser
-        //
-        loadScript('http://10.0.1.165/github/WhichBrowser/detect.js', function() {
-            var info = new WhichBrowser();
+        navigator.whois = (function() {
+            var ua = navigator.userAgent,
+                tem,
+                M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+            if (/trident/i.test(M[1])) {
+                tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
+                return 'IE ' + (tem[1] || '');
+            }
+            if (M[1] === 'Chrome') {
+                tem = ua.match(/\bOPR\/(\d+)/)
+                if (tem !== null) return 'Opera ' + tem[1];
+            }
+            M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, '-?'];
+            if ((tem = ua.match(/version\/(\d+)/i)) !== null) M.splice(1, 1, tem[1]);
+            return M;
+        })();
 
-            if (info.browser.name === 'Chrome' && info.os.name === 'Windows')
+        // Carregando a font
+        (function () {
+            'use strict';
+
+            var who = navigator.whois,
+                info = {
+                    os: navigator.appVersion.indexOf('Win') > -1 ? 'Windows' : null,
+                    browser: who[0],
+                    version: parseInt(who[1], 10)
+                };
+
+            if (info.browser === 'Chrome' && info.os === 'Windows')
                 loadCss('css/fonts-win.css');
-            else if (parseInt(info.browser.version.major, 10) < 9 && info.browser.name === 'Internet Explorer')
+            else if (info.browser === 'IE' && info.version < 9)
                 console.log('<!--[if lt IE 9]><link rel="stylesheet" type="text/css" href="css/fonts-ie.css"><![endif]-->');
             else
                 loadCss('css/fonts.css');
-        });
+
+        }());
     </script>
 </body>
 </html>

@@ -3,6 +3,7 @@
 <head>
     <title>Examples</title>
     <link rel="stylesheet" type="text/css" href="css/screen.css">
+    <!--[if lt IE 9]><link rel="stylesheet" type="text/css" href="css/fonts-ie.css"><![endif]-->
 </head>
 <body>
     <h1 class="museoSans300">museoSans300</h1>
@@ -12,6 +13,7 @@
     <h1 class="icon icon-lock"></h1>
     <h2 class="icon icon-lock"></h2>
     <p class="icon icon-lock"></p>
+    <p class="icon">Lorem Ipsum Dolor Yeahhh!!</p>
 
     <script>
         // Carrega o javascript assíncrono
@@ -54,7 +56,7 @@
             if (info.browser.name === 'Chrome' && info.os.name === 'Windows')
                 loadCss('css/fonts-win.css');
             else if (parseInt(info.browser.version.major, 10) < 9 && info.browser.name === 'Internet Explorer')
-                loadCss('css/fonts-ie.css');
+                console.log('<!--[if lt IE 9]><link rel="stylesheet" type="text/css" href="css/fonts-ie.css"><![endif]-->');
             else
                 loadCss('css/fonts.css');
         });
